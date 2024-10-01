@@ -11,6 +11,7 @@ This solution enables customers to create content once and selectively publish i
 ## Key Features
 - Multi-Select Interface: A user-friendly interface allowing the selection of multiple hosts from a dropdown list.
 - Dynamic Host Filtering: Automatically filters hosts to exclude global and system hosts.
+- Host selector checkbox.vtl adds a no-dojo multi-tiered checkbox option instead of the select box and is more of a pure javascript solution
 
 ## Implementation Steps
 1. Create Custom Field: Implement the provided Velocity code snippet to generate a multi-select dropdown for host selection.

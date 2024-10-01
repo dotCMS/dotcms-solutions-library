@@ -1,0 +1,104 @@
+<!-- Displays a list of checkboxes with child checkboxes -->
+<div id="checkboxContainer">
+    #foreach($myHosts in $dotcontent.pull("+contentType:Host",0,"Host.hostName"))
+        #set($contentlet = $dotcontent.find("$!{identifier}"))
+        #if($UtilMethods.contains($contentlet.hostSelector,"$!{myHosts.hostName}"))
+            #set($checked = "checked")
+        #else
+            #set($checked = "")
+        #end
+        <div class="parent-checkbox">
+            <label>
+                <input type="checkbox" class="parent" name="hostCheckbox" value="$!{myHosts.hostName}" $checked> $!{myHosts.hostName}
+            </label>
+            <div class="child-checkboxes" style="display:none;">
+                <!-- Dummy child checkboxes, you can replace these with dynamic data using Velocity -->
+                <label>
+                    <input type="checkbox" class="child" name="hostCheckbox" value="$!{myHosts.hostName}_child1"> $!{myHosts.hostName} - Child Option 1
+                </label>
+                <label>
+                    <input type="checkbox" class="child" name="hostCheckbox" value="$!{myHosts.hostName}_child2"> $!{myHosts.hostName} - Child Option 2
+                </label>
+            </div>
+        </div>
+    #end
+</div>
+<div style="margin-top: 10px;">
+    <strong>(
+        <span id="selected_hosts"></span>
+        )
+    </strong>
+</div>
+
+<script>
+    function setCustomValue() {
+        // Get all checked parent and child checkboxes
+        var checkboxes = document.querySelectorAll('input[name="hostCheckbox"]:checked');
+        var selectedValues = Array.from(checkboxes).map(checkbox => checkbox.value);
+        var label = selectedValues.join(', ');
+
+        // Displays the selected values in the span
+        document.getElementById("selected_hosts").innerHTML = label;
+
+        // Sets the selected host value in another field
+        document.getElementById("hostSelector").value = selectedValues.join(', ');
+    }
+
+    function toggleChildren(parentCheckbox) {
+        var childContainer = parentCheckbox.closest('.parent-checkbox').querySelector('.child-checkboxes');
+        
+        if (parentCheckbox.checked) {
+            childContainer.style.display = 'block'; // Show children when parent is checked
+        } else {
+            childContainer.style.display = 'none';  // Hide children when parent is unchecked
+
+            // Uncheck all children when hiding them
+            childContainer.querySelectorAll('input.child').forEach(function(childCheckbox) {
+                childCheckbox.checked = false;
+            });
+        }
+
+        // Update the selected values after toggling the children
+        setCustomValue();
+    }
+
+    // Call setCustomValue on page load
+    document.addEventListener("DOMContentLoaded", function() {
+        setCustomValue();
+
+        // Add event listeners to all parent checkboxes to toggle children visibility
+        document.querySelectorAll('input.parent').forEach(function(parentCheckbox) {
+            parentCheckbox.addEventListener('change', function() {
+                toggleChildren(parentCheckbox);
+            });
+
+            // If a parent checkbox is pre-checked, show its children on load
+            if (parentCheckbox.checked) {
+                toggleChildren(parentCheckbox);
+            }
+        });
+
+        // Add event listeners to child checkboxes to update values on change
+        document.querySelectorAll('input.child').forEach(function(childCheckbox) {
+            childCheckbox.addEventListener('change', function() {
+                setCustomValue(); // Update when a child checkbox is clicked
+            });
+        });
+    });
+</script>
+
+
+<style>
+    /* Add some styles for nested checkboxes */
+    .parent-checkbox {
+        margin-bottom: 10px;
+    }
+    .child-checkboxes {
+        margin-left: 20px;
+        padding-top: 5px;
+    }
+    .child-checkboxes label {
+        display: block; /* Ensure each child checkbox is on a new line */
+        margin-bottom: 5px;
+    }
+</style>
