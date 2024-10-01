@@ -1,0 +1,33 @@
+##Displays a select list 
+<select data-dojo-type="dijit/form/MultiSelect" id="fakeSelectId" onchange="setCustomValue()" multiple="true">
+    #foreach($myHosts in $dotcontent.pull("+contentType:Host",0,"Host.hostName"))
+        #set($contentlet = $dotcontent.find("$!{identifier}"))
+        #if($UtilMethods.contains($contentlet.hostSelector,"$!{myHosts.hostName}"))
+            #set($value = "true")
+        #else
+            #set($value = "false")
+        #end
+        ##
+        #if($myHosts.hostName != "global" && $myHosts.hostName != "System Host")
+            <option value="$!{myHosts.hostName}" #if($value == "true") selected #end>$!{myHosts.hostName}</option>
+        #end
+    #end
+</select>
+<div style="margin-top: 10px;">
+    <strong>[
+        <span id="selected_hosts"></span>
+        ]
+    </strong>
+</div>
+<script>
+    function setCustomValue(){
+      //Gets the value of the select field
+      var y = dijit.byId("fakeSelectId").getValue();
+      var label = y.join([separator = ', ']);
+      document.getElementById("selected_hosts").innerHTML = label;
+   
+      // Sets the selected host value
+      dojo.byId("hostSelector").value = y;
+    }
+    dojo.addOnLoad(setCustomValue);
+</script>
