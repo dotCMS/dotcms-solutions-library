@@ -21,6 +21,6 @@ This solution enables customers to create content once and selectively publish i
 - Event Announcements: Selectively share event information relevant only to certain hosts, ensuring targeted communication.
 
 ## Related Resources
-1. [dotCMS Documentation on Custom Fields] (https://www.dotcms.com/docs/latest/custom-field)
-2. [Velocity Template Language Guide] (https://www.dotcms.com/docs/latest/velocity)
+1. [dotCMS Documentation on Custom Fields](https://www.dotcms.com/docs/latest/custom-field)
+2. [Velocity Template Language Guide](https://www.dotcms.com/docs/latest/velocity)
 
