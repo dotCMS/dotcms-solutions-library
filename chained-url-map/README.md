@@ -4,8 +4,8 @@
 This solution enables users to implement chained URL mapping within dotCMS for content types such as series, episodes, and seasons. By establishing a custom URL structure, users can create more intuitive and user-friendly URLs (e.g., `/series/{series.slug}/season/{seasonNumber}`) that enhance the overall user experience.
 
 ## Challenges Addressed
-- dotCMS does not support chained URL mappings out of the box, leading to a lack of flexibility in URL structures.
-- Content Type Fields that are not Text, such as arrays or relationships are not supported in URL mappings out of the box.
+- dotCMS does not support chained URL mappings out of the box. Custom code is needed for a more flexible URL pattern.
+- Content Type Fields that are not `Text`, such as `Arrays` or `Relationships` are not supported in URL mappings out of the box.
 
 ## Key Features
 - Intuitive URL Structure: Create user-friendly URLs that reflect the hierarchy of content (e.g., `/series/{series.slug}/season/{seasonNumber}`), making it easier for users to navigate and share links.
