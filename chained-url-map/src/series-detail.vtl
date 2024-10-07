@@ -1,0 +1,29 @@
+<!-- VTL File: /application/vtl/series/series-detail.vtl -->
+
+<!-- Read path to manipulate content on the page -->
+#set($path  = $request.getAttribute("javax.servlet.forward.request_uri"))
+#set($split =  $path.split("/"))
+
+
+<!-- /series/{series.slug}/season/{seasonNumber} -->
+#set($seriesSlug = $split[1])
+#set($seasonNumber = $split[3])
+#set($series = $dotcontent.pull("+contentType:Series +Series.slug_dotraw:*the-office*",1,"modDate"))
+
+
+#if($series.totalResults > 0)
+    <h1>$series.title</h1>
+
+    ## Find the specific season
+    #foreach($season in $series.seasons)
+        #if($season.seasonNumber == $seasonNumber)
+            <h2>$season.title</h2>
+            <p>$season.description</p>
+
+            ## Retrieve Episodes as needed
+        #end
+    #end
+
+#else
+    <h2>Series Not Found</h2>
+#end
