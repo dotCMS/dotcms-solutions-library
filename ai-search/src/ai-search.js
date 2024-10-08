@@ -41,7 +41,7 @@ const getApiKey = (e) => {
     if (apiKey.hasOwnProperty("key")) {
         return apiKey;
     }
-    return fetch("https://authoring.dotcms.com/api/vtl/ai", {
+    return fetch("/api/vtl/ai", {
         method: "GET", headers: {
             "Content-Type": "application/json"
         }
@@ -79,7 +79,7 @@ const doSearchChatJsonDebounced = async () => {
     let line = "";
     let lines = [];
     try {
-        const response = await fetch('https://authoring.dotcms.com/api/v1/ai/completions', {
+        const response = await fetch('/api/v1/ai/completions', {
             method: "POST", body: JSON.stringify(formData), headers: {
                 "Content-Type": "application/json",
                 "Authorization": "Bearer " + getApiKey().key
@@ -160,7 +160,7 @@ const doSearch = async () => {
         return str.slice(0, num) + '...'
     }
 
-    fetch("https://authoring.dotcms.com/api/v1/ai/search", {
+    fetch("/api/v1/ai/search", {
         method: "POST", body: JSON.stringify(formData), headers: {
             "Content-Type": "application/json",
             "Authorization": "Bearer " + getApiKey().key
