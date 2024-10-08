@@ -8,7 +8,7 @@
 <!-- /series/{series.slug}/season/{seasonNumber} -->
 #set($seriesSlug = $split[1])
 #set($seasonNumber = $split[3])
-#set($series = $dotcontent.pull("+contentType:Series +Series.slug_dotraw:*the-office*",1,"modDate"))
+#set($series = $dotcontent.pull("+contentType:Series +Series.slug_dotraw:*{seriesSlug}*",1,"modDate"))
 
 
 #if($series.totalResults > 0)
