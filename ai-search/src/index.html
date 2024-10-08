@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Example</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="ai-search.js" defer></script>
+</head>
+
+<body>
+    <div class="container">
+        <form id="chatForm" onsubmit="return false;">
+            <div class="search-input-container">
+                <input type="text" id="question" class="ai-search-box" placeholder="Ask a question about dotCMS" />
+                <button id="search-btn" class="ask-btn" onclick="onBtnClick()">
+                    Ask AI
+                </button>
+            </div>
+        </form>
+
+        <div id="loader" style="display: none;"></div>
+
+        <div class="chat-textarea" role="textbox" id="answer" contenteditable="true"></div>
+
+        <div id="semanticSearchResults"></div>
+    </div>
+</body>
+
+</html>

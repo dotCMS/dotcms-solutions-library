@@ -1,0 +1,161 @@
+body {
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+}
+
+#loader {
+    border: 8px solid #f3f3f3;
+    /* Light grey */
+    border-top: 8px solid #3498db;
+    /* Blue */
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    animation: spin 2s linear infinite;
+    padding: 10px;
+    margin: auto;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.chat-textarea {
+    font-size: inherit;
+    padding: 10px;
+    text-align: left;
+    display: block;
+    overflow: hidden;
+    resize: vertical;
+    min-height: 40px;
+    font-family: Consolas, monospace;
+    white-space: pre-wrap;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.chat-textarea::-webkit-resizer {
+    display: none;
+}
+
+.chat-textarea {
+    border-radius: 8px;
+    background: #F1F1F1;
+    padding: 28px 20px;
+    display: none;
+}
+
+.ai-search-box {
+    border: 1px solid #6D6D6D;
+    background: transparent;
+    border-radius: 8px;
+    width: 100%;
+    padding: 15px 18px;
+
+    /* font */
+    color: #1E1E1E;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.ai-search-box::placeholder {
+    color: #A0A0A0;
+}
+
+.ask-btn {
+    font-family: "Inter", sans-serif;
+    border-radius: 6px;
+    background: #1B68DC;
+    border: none;
+    padding: 10px 15px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
+
+.search-input-container {
+    padding: 0;
+    margin: 10px;
+    display: flex;
+    position: relative;
+}
+
+.question-btn {
+    border-radius: 6px;
+    background: #F3F3F9;
+    cursor: pointer;
+    border: none;
+    padding: 7px 12px;
+
+    /* font */
+    color: #6D6D6D;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.ref-title {
+    color: #1B68DC;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 22px;
+    margin-top: 10px;
+    text-decoration: underline;
+}
+
+.ref-description {
+    color: #000;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
+.ref-chips {
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 30px;
+
+    /* font */
+    color: #1E1E1E;
+    font-size: 12px;
+    font-style: normal;
+    line-height: normal;
+}
+
+.ref-channel {
+    border-radius: 12px;
+    background: #D3D3D6;
+    padding: 3px 8px;
+}
+
+.ref-score {
+    border-radius: 12px;
+    background: #C1F0FF;
+    padding: 3px 8px;
+    margin-left: 6px;
+}
+
+.ref-match {
+    border-radius: 12px;
+    background: #F6DDB6;
+    padding: 3px 8px;
+    margin-left: 6px;
+}
