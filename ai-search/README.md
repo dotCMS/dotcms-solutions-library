@@ -9,7 +9,7 @@ This solution provides an AI-powered search interface for dotCMS that allows use
 - Users require an intuitive interface to ask questions and receive concise, relevant information quickly.
 
 ## Key Features
-- Dynamic Query Handling: Users can type questions directly related to dotCMS, and the AI will provide instant answers based on existing content.
+- Dynamic Query Handling: Users can type questions directly related to their dotCMS website, and the AI will provide instant answers based on existing content.
 - Real-Time Search Results: The interface displays relevant search results alongside AI-generated responses, ensuring users have access to multiple sources of information.
 
 ## Implementation Steps
