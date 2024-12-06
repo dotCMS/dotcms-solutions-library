@@ -1,0 +1,64 @@
+<script>
+    function slugify(text) {
+        const a = 'àáäâćèéëêìíïîòóöôùúüûñçßÿœæŕśšńṕẃǵǹḿǘẍźḧ·/_,:;=';
+        const b = 'aaaaceeeeiiiioooouuuuncsyoarssnpwgnmuxzh-------';
+        const p = new RegExp(a.split('').join('|'), 'g');
+
+        return text.toString().toLowerCase()
+            .replace(/\s+/g, '-')           // Replace spaces with -
+            .replace(p, c => b.charAt(a.indexOf(c)))     // Replace special chars
+            .replace(/&/g, '-and-')         // Replace & with 'and'
+            .replace(/[^\w\-]+/g, '')       // Remove all non-word chars
+            .replace(/\-\-+/g, '-')         // Replace multiple - with single -
+            .replace(/^-+/, '')             // Trim - from start of text
+            .replace(/-+$/, '');            // Trim - from end of text
+    }
+
+    var fieldToSlugOff = "title";
+    var slugField = "urlTitle";
+    var slugEdited = false;
+    var currentVal = "$!urlTitle";
+
+    function updateDisplayURLTitle() {
+        var plainTitle = document.getElementById(fieldToSlugOff).value;
+
+        if (!plainTitle) {
+            return;
+        }
+
+        var newVal = slugify(plainTitle);
+        document.getElementById("slugSuggestion").style.display = "none";
+
+        if (!currentVal && !slugEdited) {
+            document.getElementById("slugCustomField").value = newVal;
+            document.getElementById(slugField).value = newVal;
+        } else if (newVal !== currentVal) {
+            document.getElementById("slugSuggestion").style.display = "";
+
+            let htmlTemplate = `<i>suggestion</i> : <a href="javascript:useSlugSuggestion('${newVal}')">${newVal}</a>`;
+            document.getElementById("slugSuggestion").innerHTML = htmlTemplate;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById(fieldToSlugOff).addEventListener("keyup", updateDisplayURLTitle);
+    });
+
+    function updateUrlMap() {
+        slugEdited = true;
+        document.getElementById(slugField).value = document.getElementById("slugCustomField").value;
+        emmitFieldDataChange(true);
+    }
+
+    function useSlugSuggestion(slugSuggestion) {
+        document.getElementById("slugSuggestion").style.display = "none";
+
+        if (slugSuggestion) {
+            document.getElementById("slugCustomField").value = slugSuggestion;
+            updateUrlMap();
+        }
+    }
+</script>
+
+<input type="text" class="dijitTextBox" id="slugCustomField" value="$!{urlTitle}" onkeyup="updateUrlMap()" style="background:#FAFAFA"/>
+<div id="slugSuggestion" style="padding-top:10px;padding-left:10px;display:none;"></div>

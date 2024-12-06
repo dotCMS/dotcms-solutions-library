@@ -1,0 +1,55 @@
+<script>
+    var field1 = "pimIdentifier";
+    var field2 = "key";
+    var slugField = "urlTitle";
+    var slugEdited = false;
+    var currentVal = "$!urlTitle";
+
+    function updateDisplayURLTitle() {
+        var f1 = document.getElementById(field1).value;
+        var f2 = document.getElementById(field2).value;
+
+        if (!f1 || !f2) {
+            return;
+        }
+
+        var newVal = f1 + "-" + f2;
+        document.getElementById("slugSuggestion").style.display = "none";
+
+        if (!currentVal && !slugEdited) {
+            document.getElementById("slugCustomField").value = newVal;
+            document.getElementById(slugField).value = newVal;
+        } else if (newVal !== currentVal) {
+            document.getElementById("slugSuggestion").style.display = "";
+
+            let htmlTemplate = `<i>suggestion</i> : <a href="javascript:useSlugSuggestion('${newVal}')">${newVal}</a>`;
+            document.getElementById("slugSuggestion").innerHTML = htmlTemplate;
+        }
+    }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        document.getElementById(field1).addEventListener("keyup", updateDisplayURLTitle);
+        document.getElementById(field2).addEventListener("keyup", updateDisplayURLTitle);
+
+        // init value
+        updateDisplayURLTitle();
+    });
+
+    function updateUrlMap() {
+        slugEdited = true;
+        document.getElementById(slugField).value = document.getElementById("slugCustomField").value;
+        emmitFieldDataChange(true);
+    }
+
+    function useSlugSuggestion(slugSuggestion) {
+        document.getElementById("slugSuggestion").style.display = "none";
+
+        if (slugSuggestion) {
+            document.getElementById("slugCustomField").value = slugSuggestion;
+            updateUrlMap();
+        }
+    }
+</script>
+
+<input type="text" class="dijitTextBox" id="slugCustomField" value="$!{urlTitle}" onkeyup="updateUrlMap()" style="background:#FAFAFA"/>
+<div id="slugSuggestion" style="padding-top:10px;padding-left:10px;display:none;"></div>
