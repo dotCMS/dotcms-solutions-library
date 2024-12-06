@@ -1,0 +1,83 @@
+## Displays a select list for categories
+<select id="fakeSelectId" onchange="setCustomValue()">
+    #set($renderedSubCategories = []) ## Create an array to track rendered subcategories
+
+    ## Loop through the main categories
+    #foreach($category in $dotcontent.pull("+contentType:Category",0,"modDate desc"))
+        #set($contentlet = $dotcontent.find("$!{identifier}"))
+        #if($UtilMethods.contains($contentlet.category,"$!{category.pimIdentifier}"))
+            #set($value = "true")
+        #else
+            #set($value = "false")
+        #end
+
+        ## Check if the category is a main category (not rendered as a subcategory)
+        #if(!$renderedSubCategories.contains($category.pimIdentifier))
+            ## Main Category option
+            <option value="$!{category.pimIdentifier}" #if($value == "true") selected #end>
+                $category.pimIdentifier $category.title
+            </option>
+
+            ## Recursive function to handle sub-categories
+            #macro(renderSubCategories $parentCategories $level)
+                #foreach($category in $parentCategories)
+                    #set($prefix = "")
+                    #foreach($i in [1..$level])
+                        #set($prefix = $prefix + "-")
+                    #end
+
+                    #if($UtilMethods.contains($contentlet.category,"$!{category.pimIdentifier}"))
+                        #set($value = "true")
+                    #else
+                        #set($value = "false")
+                    #end
+                    
+                    <option value="$!{category.pimIdentifier}" 
+                            style="padding-left: $level * 20px;" 
+                            #if($value == "true") selected #end>
+                        $prefix $category.pimIdentifier $category.title
+                    </option>
+
+                    ## Mark this category as rendered subcategory
+                    $renderedSubCategories.add($category.pimIdentifier)
+
+                    ## Recursive call to render children if any
+                    #set($children = $dotcontent.pullRelatedField("$category.identifier", "category.childrenCategories", "*"))
+                    #if($children)
+                        #set($level = $level + 1)
+                        #renderSubCategories($children, $level)
+                    #end
+                #end
+            #end
+
+            ## Call the recursive macro with top-level categories
+            #set($children = $dotcontent.pullRelatedField("$category.identifier", "category.childrenCategories", "*"))
+            #if($children)
+                #renderSubCategories($children, 1)
+            #end
+        #end
+    #end
+</select>
+
+<div style="margin-top: 10px;">
+    <strong>[
+        <span id="selected_category"></span>
+        ]
+    </strong>
+</div>
+
+<script>
+    function setCustomValue() {
+        // Gets the selected value from the select list
+        var select = document.getElementById("fakeSelectId");
+        var selectedValue = select.value;
+
+        // Updates the selected category display
+        document.getElementById("selected_category").innerHTML = selectedValue;
+
+        // Sets the selected category field value
+        document.getElementById("category").value = selectedValue;
+    }
+
+    window.onload = setCustomValue;
+</script>
